@@ -2,7 +2,7 @@
 
 A dark, cyberpunk-styled FiveM HUD with a warm gold accent, a smart camera/surveillance zone system, and an in-game settings menu for live color customization, cinematic mode, and configurable minimap behavior.
 
-<img width="456" height="463" alt="image" src="https://github.com/user-attachments/assets/8b44d1dc-b557-4b0f-8e86-6fb8a2ee2e04" />
+<img width="661" height="370" alt="zxhud preview" src="[https://github.com/user-attachments/assets/7c3b0f7f-44dc-4b87-bcea-10118dc1cf2b](https://cdn.discordapp.com/attachments/1299882823921963120/1531267270767284344/image.png?ex=6a689746&is=6a6745c6&hm=1ae844cf572b6037467208e07d5750573399d4558a5509340b9e50bb9c9c0182&)" />
 <img width="583" height="314" alt="image" src="https://github.com/user-attachments/assets/dcd238d0-9f5a-4b19-9a3f-aebe1265325d" />
 
 
