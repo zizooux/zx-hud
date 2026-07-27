@@ -1,0 +1,505 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+
+/* ═══════════════════════════════════════════════════════════════
+   ZXHUD — CYBERPUNK  |  BLACK × #967969
+═══════════════════════════════════════════════════════════════ */
+
+:root {
+    --gold:              #967969;
+    --gold-dim:          rgba(150, 121, 105, 0.40);
+    --gold-glow:         rgba(150, 121, 105, 0.60);
+    --gold-faint:        rgba(150, 121, 105, 0.12);
+
+    --black:             #000000;
+    --panel:             #080808;
+    --box:               #0d0d0d;
+    --icon-bg:           #000000;
+
+    --text:              #c8b09a;
+
+    /* mapped tokens */
+    --color-red:                    #ff1744;
+    --color-bg-main:                var(--panel);
+    --color-bg-box:                 var(--box);
+    --color-text-light:             var(--text);
+    --color-bg-icon:                var(--icon-bg);
+    --color-bg-pressent-orange:     var(--gold);
+    --color-bg-mic:                 var(--gold);
+    --color-bg-eat:                 rgba(150, 121, 105, 0.55);
+    --color-bg-water:               rgba(0, 140, 220, 0.60);
+    --color-bg-stress:              rgba(140, 60, 200, 0.55);
+    --color-bg-walk:                rgba(150, 121, 105, 0.35);
+    --color-bg-armor:               rgba(20, 60, 160, 0.65);
+    --color-bg-health:              rgba(220, 30, 50, 0.65);
+    --color-bg-car:                 rgba(150, 121, 105, 0.40);
+    --color-bg-fuel:                #000000;
+    --color-outline-fuel:           var(--gold-faint);
+    --color-bg-fuel-line:           rgba(0, 0, 0, 0.90);
+    --color-border-fuel-line:       rgba(150, 121, 105, 0.15);
+    --color-bg-fuel-fill:           var(--gold);
+    --color-bg-engine:              rgba(0, 0, 0, 0.90);
+    --color-border-engine:          rgba(150, 121, 105, 0.15);
+    --color-text-engine:            var(--gold);
+    --color-bg-pressent-engine:     rgba(150, 121, 105, 0.18);
+    --color-text-gear:              var(--gold);
+    --color-shadow-gear:            var(--gold);
+    --color-bg-seggement:           #0a0a0a;
+    --color-border-seggement:       rgba(150, 121, 105, 0.10);
+    --color-shadow-seggement:       rgba(150, 121, 105, 0.15);
+    --color-bg-filled:              var(--gold);
+    --color-bg-between:             #c8a882;
+    --color-bg-critical:            rgba(255, 23, 68, 0.28);
+
+    --main-border: var(--gold);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    transition: 1.5s;
+}
+
+body {
+    overflow: hidden;
+    font-family: "Rajdhani", "Share Tech Mono", sans-serif;
+    background: transparent;
+}
+
+::-webkit-scrollbar { display: none; }
+
+@keyframes shake-soft {
+    0%   { transform: translateX(0); }
+    25%  { transform: translateX(-1px); }
+    50%  { transform: translateX(1px); }
+    75%  { transform: translateX(-1px); }
+    100% { transform: translateX(0); }
+}
+
+.alert-active {
+    animation: shake-soft 0.6s infinite;
+}
+
+#walk.alert-active #walk-pressent {
+    background-color: var(--color-red) !important;
+}
+
+/* ── HUD container ── */
+.hud-main {
+    display: flex;
+    position: absolute;
+    width: 500px;
+    height: 40px;
+    bottom: 10px;
+    left: 25px;
+    gap: 3px;
+    border-radius: 8px;
+    align-items: center;
+    filter: drop-shadow(0 0 6px rgba(150, 121, 105, 0.18));
+}
+
+.hud-main::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 2px,
+        rgba(150, 121, 105, 0.015) 2px,
+        rgba(150, 121, 105, 0.015) 4px
+    );
+    z-index: 1000;
+    border-radius: 8px;
+}
+
+/* ── Outer hex ── */
+.main {
+    position: relative;
+    background-color: var(--panel);
+    box-shadow: 0 0 12px rgba(150, 121, 105, 0.28),
+                0 0 30px rgba(0, 0, 0, 0.95),
+                inset 0 0 6px rgba(150, 121, 105, 0.06);
+    height: 40px;
+    width: 44px;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    border-radius: 13px;
+    outline: 1px solid rgba(150, 121, 105, 0.18);
+    outline-offset: -1px;
+}
+
+/* ── Inner hex ── */
+.box-hud {
+    position: relative;
+    background-color: var(--box);
+    height: 34px;
+    width: 38px;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    border-radius: 10px;
+}
+
+/* ── Icons ── */
+.box-hud i {
+    font-size: 16px;
+    background-color: var(--icon-bg);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    z-index: 999;
+    color: var(--text);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 36px;
+    margin-top: 1px;
+    border-radius: 10px;
+    text-shadow: 0 0 6px var(--gold-dim);
+    transition: color 0.4s ease, text-shadow 0.4s ease;
+    animation: gold-flicker 9s ease-in-out infinite;
+}
+
+@keyframes gold-flicker {
+    0%, 94%, 100% { opacity: 1; }
+    95%  { opacity: 0.85; }
+    96%  { opacity: 1; }
+    97%  { opacity: 0.80; }
+    98%  { opacity: 1; }
+}
+
+/* ── Progress fills ── */
+.svg-test {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    bottom: -34px;
+    width: 100%;
+    transition: 0.9s;
+}
+
+.pressent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--gold);
+    height: 100%;
+    width: 100%;
+    transition: 0.9s;
+    box-shadow: 0 0 8px var(--gold-dim);
+}
+
+.svg-test:hover { height: 180%; }
+
+#mic-pressent    { background-color: var(--gold); }
+#eat-pressent    { background-color: rgba(150, 121, 105, 0.55); }
+#water-pressent  { background-color: rgba(0,140,220,0.60);  box-shadow: 0 0 6px rgba(0,140,220,0.50); }
+#stress-pressent { background-color: rgba(140,60,200,0.55); box-shadow: 0 0 6px rgba(140,60,200,0.45); }
+#walk-pressent   { background-color: rgba(150, 121, 105, 0.35); }
+#armor-pressent  { background-color: rgba(20,60,160,0.65);  box-shadow: 0 0 6px rgba(20,60,160,0.55); }
+#health-pressent { background-color: rgba(220,30,50,0.65);  box-shadow: 0 0 6px rgba(220,30,50,0.50); }
+
+/* ── Car HUD ── */
+.svg-car {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 30px;
+    transition: 0.9s;
+}
+
+.svg-pressent-car {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(150, 121, 105, 0.40);
+    height: 100%;
+    width: 100%;
+    top: 97%;
+    transition: 0.9s;
+    box-shadow: 0 0 8px var(--gold-faint);
+}
+
+/* ── Fuel circle ── */
+.fuel-circle {
+    position: relative;
+    background-color: #000;
+    outline: 1px solid rgba(150, 121, 105, 0.30);
+    height: 30px;
+    width: 30px;
+    color: var(--gold);
+    text-shadow: 0 0 8px var(--gold-glow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    clip-path: circle(50% at 50% 50%);
+}
+
+.seat-circle {
+    position: absolute;
+    bottom: 15%;
+    left: 18vh;
+    color: #ff1744;
+    text-shadow: #ff1744 1px 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.fuel-wrapper {
+    position: relative;
+    top: 8vh;
+    display: flex;
+    align-items: center;
+}
+
+.fuel-wrapper i {
+    color: var(--gold);
+    font-size: 11px;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-shadow: 0 0 6px var(--gold-glow);
+}
+
+.fuel-line {
+    position: relative;
+    width: 80px;
+    height: 6px;
+    background: rgba(0,0,0,0.90);
+    border: 1px solid rgba(150, 121, 105, 0.20);
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 0 4px rgba(150, 121, 105, 0.10);
+}
+
+.fuel-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 60%;
+    background-color: var(--gold);
+    box-shadow: 0 0 8px var(--gold-dim);
+    transition: width 0.9s ease-in-out;
+}
+
+/* ── Engine ── */
+.engine-circle {
+    position: relative;
+    left: 14vh;
+    top: -1vh;
+    background: rgba(0,0,0,0.90);
+    border: 1px solid rgba(150, 121, 105, 0.20);
+    height: 30px;
+    width: 30px;
+    color: var(--gold);
+    text-shadow: 0 0 8px var(--gold-glow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    clip-path: circle(50% at 50% 50%);
+}
+
+.engine-circle i {
+    background: rgba(0,0,0,0.90);
+    border: 1px solid rgba(150, 121, 105, 0.15);
+    clip-path: circle(50% at 50% 50%);
+    z-index: 999;
+    color: var(--gold);
+    text-shadow: 0 0 8px var(--gold-glow);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    width: 25px;
+    margin-top: 2px;
+}
+
+.svg-engine {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    bottom: -30px;
+    width: 30px;
+    transition: 0.9s;
+}
+
+.svg-pressent-engine {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(150, 121, 105, 0.18);
+    height: 100%;
+    width: 100%;
+    transition: 0.9s;
+    box-shadow: 0 0 8px var(--gold-faint);
+}
+
+/* ── RPM / Speed / Gear ── */
+.hud-rpm-fuel-engine {
+    position: relative;
+    top: -1.5vh;
+    left: 5vh;
+    display: flex;
+    flex-direction: column;
+    margin-right: 8px;
+}
+
+.hud-rpm {
+    position: absolute;
+    bottom: 90px;
+    left: 300px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+.gear {
+    position: relative;
+    left: 4vh;
+    top: -0.5vh;
+    background: rgba(0,0,0,0.90);
+    border: 1px solid rgba(150, 121, 105, 0.30);
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 60px;
+    color: var(--gold);
+    text-shadow: 0 0 10px var(--gold-glow), 0 0 20px var(--gold-dim);
+    box-shadow: 0 0 8px rgba(150, 121, 105, 0.18), inset 0 0 6px rgba(150, 121, 105, 0.06);
+    font-family: "Share Tech Mono", monospace;
+}
+
+.gear h3 { position: absolute; }
+
+.first-hud-rpm-lablels {
+    display: flex;
+    flex-direction: column;
+    color: var(--gold);
+    text-shadow: 0 0 6px var(--gold-glow);
+    width: 50px;
+    font-family: "Share Tech Mono", monospace;
+}
+
+.km {
+    position: relative;
+    bottom: 30%;
+    left: 50%;
+    transition: 1.5s;
+    font-size: 5vh;
+    font-weight: 400;
+    color: var(--gold);
+    text-shadow: 0 0 12px var(--gold-glow), 0 0 24px var(--gold-dim);
+    font-family: "Share Tech Mono", monospace;
+}
+
+.label-kmh {
+    position: relative;
+    bottom: 43%;
+    left: 16.7vh;
+    font-size: 10px;
+    transition: 1.5s;
+    color: rgba(150, 121, 105, 0.60);
+    text-shadow: 0 0 6px var(--gold-glow);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.hud-rpm-lables-and-segemets {
+    position: relative;
+    bottom: -40px;
+    left: -8vh;
+    display: flex;
+    gap: 20px;
+}
+
+.hud-seggemts {
+    height: 15%;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    margin-top: 10px;
+    position: absolute;
+    top: 90px;
+    left: 35px;
+}
+
+.hud-rpm { width: 400px; }
+
+.seggement {
+    width: 8px;
+    height: 16px;
+    border-radius: 3px;
+    background: var(--color-bg-seggement);
+    border: 1px solid rgba(150, 121, 105, 0.10);
+    box-shadow: 0 0 3px rgba(150, 121, 105, 0.10);
+}
+
+.hud-first { display: flex; }
+
+.filled {
+    background-color: var(--gold) !important;
+    box-shadow: 0 0 6px var(--gold-glow), 0 0 12px var(--gold-dim) !important;
+}
+
+.between {
+    background-color: #c8a882 !important;
+    box-shadow: 0 0 6px rgba(200,168,130,0.55) !important;
+}
+
+.critical {
+    background-color: rgba(255,23,68,0.30) !important;
+    box-shadow: 0 0 6px rgba(255,23,68,0.40) !important;
+}
+
+/* ── Camera indicator ── */
+#camera-status-icon {
+    transition: color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                text-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#camera-status-icon.cam-out {
+    color: #ff1744 !important;
+    text-shadow: 0 0 8px rgba(255,23,68,0.80),
+                 0 0 16px rgba(255,23,68,0.40) !important;
+}
+
+#camera-status-icon.cam-in {
+    color: #00e676 !important;
+    text-shadow: 0 0 8px rgba(0, 230, 118, 0.85),
+                 0 0 16px rgba(0, 230, 118, 0.40) !important;
+    animation: cam-pulse 2s ease-in-out infinite;
+}
+
+@keyframes cam-pulse {
+    0%   { opacity: 1;    }
+    50%  { opacity: 0.55; }
+    100% { opacity: 1;    }
+}
