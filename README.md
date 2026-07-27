@@ -5,6 +5,8 @@ A dark, cyberpunk-styled FiveM HUD with a warm gold accent, a smart camera/surve
 
 <img width="583" height="314" alt="image" src="https://github.com/user-attachments/assets/dcd238d0-9f5a-4b19-9a3f-aebe1265325d" />
 <img width="456" height="463" alt="image" src="https://github.com/user-attachments/assets/98fe0429-475e-4e0c-80d3-a236b322c115" />
+<img width="234" height="255" alt="image" src="https://github.com/user-attachments/assets/54961edd-7469-4c4c-9b90-242edfb79705" />
+
 
 
 ---
